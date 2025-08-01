@@ -6,6 +6,11 @@ import { Award, Users, TrendingUp } from "lucide-react"
 
 const teamMembers = [
   {
+    name: "Alex Shani",
+    position: "CEO",
+    image: "/placeholder-user.jpg"
+  },
+  {
     name: "Edward Berggren",
     position: "Broker",
     image: "/placeholder-user.jpg"
@@ -21,18 +26,28 @@ const teamMembers = [
     image: "/placeholder-user.jpg"
   },
   {
-    name: "Lithen Felix",
-    position: "CEO",
-    image: "/placeholder-user.jpg"
-  },
-  {
     name: "Arthur Blanc",
     position: "Business Advisor",
     image: "/placeholder-user.jpg"
   },
   {
     name: "Jimmy Becker",
-    position: "Director General",
+    position: "Co Founder",
+    image: "/placeholder-user.jpg"
+  },
+  {
+    name: "David Rodriguez",
+    position: "Broker",
+    image: "/placeholder-user.jpg"
+  },
+  {
+    name: "Sarah Johnson",
+    position: "Broker",
+    image: "/placeholder-user.jpg"
+  },
+  {
+    name: "Marcus Chen",
+    position: "Broker",
     image: "/placeholder-user.jpg"
   }
 ]
@@ -57,21 +72,21 @@ export default function TeamPage() {
               <div className="bg-[#836b55] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="text-white" size={28} />
               </div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-2">85+</h3>
+              <h3 className="text-3xl font-bold text-gray-900 mb-2">120+</h3>
               <p className="text-gray-600">Years Combined Experience</p>
             </div>
             <div className="text-center">
               <div className="bg-[#836b55] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="text-white" size={28} />
               </div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-2">500+</h3>
+              <h3 className="text-3xl font-bold text-gray-900 mb-2">750+</h3>
               <p className="text-gray-600">Satisfied Clients</p>
             </div>
             <div className="text-center">
               <div className="bg-[#836b55] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <TrendingUp className="text-white" size={28} />
               </div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-2">€3.2B+</h3>
+              <h3 className="text-3xl font-bold text-gray-900 mb-2">€4.8B+</h3>
               <p className="text-gray-600">Assets Managed</p>
             </div>
           </div>
@@ -83,7 +98,7 @@ export default function TeamPage() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {teamMembers.map((member, index) => (
-              <TeamMemberCard key={index} member={member} />
+              <TeamMemberCard key={index} member={member} isCEO={member.position === "CEO"} />
             ))}
           </div>
         </div>
@@ -110,11 +125,11 @@ export default function TeamPage() {
   )
 }
 
-function TeamMemberCard({ member }: { member: typeof teamMembers[0] }) {
+function TeamMemberCard({ member, isCEO = false }: { member: typeof teamMembers[0]; isCEO?: boolean }) {
   return (
-    <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 text-center group hover:-translate-y-2">
+    <div className={`bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 text-center group hover:-translate-y-2 ${isCEO ? 'ring-4 ring-[#836b55] ring-opacity-50 scale-105' : ''}`}>
       <div className="relative mb-6">
-        <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-[#836b55]/20 group-hover:border-[#836b55] transition-colors">
+        <div className={`w-32 h-32 mx-auto rounded-full overflow-hidden border-4 ${isCEO ? 'border-[#836b55]' : 'border-[#836b55]/20'} group-hover:border-[#836b55] transition-colors`}>
           <Image
             src={member.image}
             alt={member.name}
@@ -126,10 +141,15 @@ function TeamMemberCard({ member }: { member: typeof teamMembers[0] }) {
         <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-[#836b55] rounded-full flex items-center justify-center">
           <div className="w-4 h-4 bg-white rounded-full"></div>
         </div>
+        {isCEO && (
+          <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+            <span className="text-white text-xs font-bold">CEO</span>
+          </div>
+        )}
       </div>
       
       <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
-      <p className="text-[#836b55] font-medium">{member.position}</p>
+      <p className={`${isCEO ? 'text-yellow-600' : 'text-[#836b55]'} font-medium`}>{member.position}</p>
     </div>
   )
 }
